@@ -105,4 +105,36 @@ view_targets(ts)  # Visar uppdaterad måltavla med ett stängt mål
 close_target(ts, 0)  # Stänger mål på position 0
 view_targets(ts)  # Visar uppdaterad måltavla med två stängda mål
 
+#------------------------------------------------------------------
+from random import randint
+
+# Funktion som simulerar en träff eller miss med 50 % sannolikhet
+def random_hit():
+    return randint(0, 1) == 1  # Returnerar True om det slumpade värdet är 1, annars False
+
+# Funktion som skjuter på en specifik måltavla och position
+def shoot(targets, position):
+    if is_open(targets[position]):
+        if random_hit():  # Om det är en träff
+            close_target(targets, position)  # Stänger målet
+            return "Hit on open target"
+        else:
+            return "Miss"
+    elif is_closed(targets[position]):
+        return "Hit on closed target"
+
+# Testa funktionerna
+ts = new_targets()
+view_targets(ts)
+
+# Försök skjuta på olika mål och observera resultaten
+print(shoot(ts, 0))  # Försöker skjuta på mål 0
+view_targets(ts)
+
+print(shoot(ts, 0))  # Försöker skjuta på mål 0 igen
+view_targets(ts)
+
+print(shoot(ts, 4))  # Försöker skjuta på mål 4
+view_targets(ts)
+
 
