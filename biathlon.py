@@ -7,7 +7,6 @@ def splash():
 # Globala variabler
 open = 0
 closed = 1
-targets = [1, 2, 3, 4, 5]
 
 def is_open(value):
     # Jämför 'value' med det globala värdet 'open'
@@ -33,4 +32,17 @@ def new_targets():
 
 # Exempel på användning
 print(new_targets())  # Förväntat [0, 0, 0, 0, 0] om 'open' är 0
+
+
+def close_target(targets, position):
+    targets[position] = closed
+    return targets
+
+# test exempel
+ts = new_targets()
+print(ts)
+ts = close_target(ts, 3)
+print(ts)
+ts = close_target(ts, 4)
+print(ts)
 
