@@ -46,3 +46,33 @@ print(ts)
 ts = close_target(ts, 4)
 print(ts)
 
+#---------------------------------------------------------------
+
+# Funktion för att räkna stängda mål
+def points(targets):
+    # Variabel för att hålla räkningen av stängda mål
+    n = 0
+    # Loopa genom varje mål i targets
+    for target in targets:
+        # Kontrollera om målet är stängt
+        if is_closed(target):
+            # Om det är stängt, öka räknaren
+            n += 1
+    # Returnera antalet stängda mål
+    return n
+
+# Testa funktionen
+ts = new_targets()  # Skapar en ny måltavla [0, 0, 0, 0, 0]
+print(points(ts))  # Förväntat resultat: 0
+
+close_target(ts, 2)  # Stänger mål på position 2
+print(points(ts))  # Förväntat resultat: 1
+
+close_target(ts, 0)  # Stänger mål på position 0
+close_target(ts, 4)  # Stänger mål på position 4
+print(points(ts))  # Förväntat resultat: 3
+
+close_target(ts, 3)  # Stänger mål på position 3
+close_target(ts, 1)  # Stänger mål på position 1
+print(points(ts))  # Förväntat resultat: 5
+
