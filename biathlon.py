@@ -76,3 +76,33 @@ close_target(ts, 3)  # Stänger mål på position 3
 close_target(ts, 1)  # Stänger mål på position 1
 print(points(ts))  # Förväntat resultat: 5
 
+#------------------------------------------------------------------
+# Funktion som omvandlar måltavlan till en sträng
+def targets_to_string(targets):
+    result = ""
+    for target in targets:
+        if is_closed(target):  # Om målet är stängt
+            result += "* "
+        else:  # Om målet är öppet
+            result += "0 "
+    return result  # Returnerar den formaterade strängen
+
+# Funktion som visar måltavlan på skärmen
+def view_targets(targets):
+    # Rad med numrering (index)
+    print("  " + " ".join([str(i) for i in range(len(targets))]))
+    
+    # Rad med mål (öppna eller stängda)
+    print("  " + targets_to_string(targets))
+
+# Testa funktionerna
+ts = new_targets()
+view_targets(ts)  # Visar en måltavla med alla öppna mål
+
+close_target(ts, 3)  # Stänger mål på position 3
+view_targets(ts)  # Visar uppdaterad måltavla med ett stängt mål
+
+close_target(ts, 0)  # Stänger mål på position 0
+view_targets(ts)  # Visar uppdaterad måltavla med två stängda mål
+
+
