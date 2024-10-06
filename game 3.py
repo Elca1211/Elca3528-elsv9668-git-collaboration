@@ -1,4 +1,4 @@
-# spelet med kommentarer
+ # spelet med kommentarer
 
 # Importera nödvändiga moduler och funktioner
 from random import randint  # Importerar funktionen randint från modulen random för att generera slumpmässiga heltal
@@ -57,7 +57,7 @@ def points(targets):
     return sum(1 for t in targets if is_closed(t))
 
 # Ny funktion för att parsa användarinmatning
-def parse_target(string):
+def parse_target(string):        # utför någon form av logik
     # Konverterar en sträng till motsvarande index i måltavlan
     if len(string) == 1 and string.isnumeric():
         num = int(string)
