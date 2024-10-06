@@ -1,10 +1,10 @@
- # spelet med kommentarer
-
-# Importera nödvändiga moduler och funktioner
-from random import randint  # Importerar funktionen randint från modulen random för att generera slumpmässiga heltal
+# BIATHLON A HIT OR MISS GAME 
 #-----------------------------------------------------------------------------------
 # Funktioner
 #-----------------------------------------------------------------------------------
+# Importera nödvändiga moduler och funktioner
+from random import randint  # Importerar funktionen randint från modulen random för att generera slumpmässiga heltal
+
 def splash():
     # Visar spelets titel och introduktion
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
@@ -65,7 +65,6 @@ def parse_target(string):        # utför någon form av logik
         if 1 <= num <= 5:
             return num - 1
     return None
- 
 #-----------------------------------------------------------------------------------
 # Huvudspel
 #-----------------------------------------------------------------------------------
@@ -92,7 +91,6 @@ def play_game():
 
 # Starta spelet
 play_game()
-
 #-----------------------------------------------------------------------------------
 Spel för två spelare
 #-----------------------------------------------------------------------------------
