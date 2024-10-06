@@ -2,8 +2,9 @@
 
 # Importera nödvändiga moduler och funktioner
 from random import randint  # Importerar funktionen randint från modulen random för att generera slumpmässiga heltal
-
-# Funktioner vi redan har skapat
+#-----------------------------------------------------------------------------------
+# Funktioner
+#-----------------------------------------------------------------------------------
 def splash():
     # Visar spelets titel och introduktion
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
@@ -64,8 +65,10 @@ def parse_target(string):        # utför någon form av logik
         if 1 <= num <= 5:
             return num - 1
     return None
-
-# Huvudspel loop
+ 
+#-----------------------------------------------------------------------------------
+# Huvudspel
+#-----------------------------------------------------------------------------------
 def play_game():
     splash()  # Visa spelets titel och introduktion
     shots = 5  # Antal skott
@@ -90,8 +93,9 @@ def play_game():
 # Starta spelet
 play_game()
 
-#-------------------------------------------------------------
-
+#-----------------------------------------------------------------------------------
+Spel för två spelare
+#-----------------------------------------------------------------------------------
 def play_game_two_players():
     splash()  # Visa spelets titel och introduktion
     shots = 5  # Antal skott per spelare
