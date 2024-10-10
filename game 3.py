@@ -10,8 +10,8 @@
 from random import randint  # Importerar funktionen randint från python-modulen random för att generera slumpmässiga heltal (används senare i "random_hit()")
 
 
+# Skriver ut spelets titel och introduktion
 def splash():
-    # Skriver ut spelets titel och introduktion
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     print("              Biathlon")
     print()
@@ -19,31 +19,35 @@ def splash():
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~") # Inget returvärde, ingen sidoeffekt annat än att visa information för spelaren.
 
 
+# Skapar en ny måltavla representerad som en lista med fem öppna mål ([0, 0, 0, 0, 0]). (Öppet mål = 0) 
 def new_targets():
-    # Skapar en ny måltavla representerad som en lista med fem öppna mål ([0, 0, 0, 0, 0]). (Öppet mål = 0) 
     return [0, 0, 0, 0, 0] # Returnerar en listan till spelaren. 
 
 
-def is_open(target): # Kontrollerar om ett mål är öppet (0)
+# Kontroll av öppet mål
+def is_open(target): # (0) - målet är öppet 
     return target == 0
 
 
-def is_closed(target):
-    # Kontrollerar om ett mål är stängt (1)
+# Kontroll om målset är stängt
+def is_closed(target): # (1) - målet är stängt 
     return target == 1
 
 
-def close_target(targets, position):
-    # Stänger ett mål (ändrar värdet från 0 till 1) vid angiven position om det är öppet.
+# Träff, stänger mål vid träff 
+def close_target(targets, position): # ändrar värdet från 0 till 1) vid angiven position om det är öppet.
     if is_open(targets[position]):
         targets[position] = 1 # om det är öppet ändras måltavlan vid den positionen till 1, dvs målet är stängt
 
 
+# Slumpen, träffsäkerheten = 50%
 def random_hit():
-    # Returnerar True med 50% sannolikhet (träff) och False med 50% sannolikhet (miss)
-    return randint(0, 1) == 1 # Gör spelet mer förutsägbart
+    return randint(0, 1) == 1 # Blir random 1 eller 0, dvs ca 50% chans att det blir en etta när man siktar mot ett mål
+# Returnerar True med 50% sannolikhet (träff) och False med 50% sannolikhet (miss)
 
-def shoot(targets, position): # Hanterar skott mot ett specifikt mål baserat på en slumphändelse, retuneras strängar 
+
+# Hanterar skott mot ett specifikt mål baserat på en slumphändelse, retuneras strängar 
+def shoot(targets, position): 
     if is_closed(targets[position]): # Om man träffar ett stängt mål 
         return "Hit on closed target"
     elif random_hit(): # 50 % chans för träff om man skjuter mot ett öppet mål (random_hit() = True)
@@ -53,36 +57,25 @@ def shoot(targets, position): # Hanterar skott mot ett specifikt mål baserat p�
         return "Miss" # Om man siktar mot ett öppet mål, men missar pågrund av slumpen, retuneras strängen "Miss" (random_hit() = False)
 
 
-######### ÄNDRA ###################################################################
-def targets_to_string(targets):
-    result = ""
+# Skriver ut resultat måltavlan
+def targets_to_string(targets): # targets = listan med nollor och ettor 
+    result = "" # Resultas måltavlan är först tom 
     for target in targets:
-        if is_closed(target):  # Om målet är stängt
-            result += "* " # antalet träffar
-        else:  # Om målet är öppet
-            result += "0 " # antalet missar 
+        if is_closed(target):  # Om målet är stängt --> dvs en träff
+            result += "* " # öka antalet * med 1 på måltavlan 
+        else:  # Om målet är öppet (dvs en miss)
+            result += "O " # antalet missar, Antalet öppna mål kvar 
     return result  # Returnerar den formaterade strängen
 
 
-# def targets_to_string(targets):
-#     # Retunerar måltavlan till den resulterande måltavlan efter varje skott. 
-#     return " ".join('*' if is_closed(t) else 'O' for t in targets) # * = stängt mål (träff) och O = öppet mål BY HAND
-# # t är elementet i listan 
-# # join utesluter [] och har ett blanksteg innan. 
-
-###################################################################################
-
-
-
+# Visar måltavlan och dess numreringar 
 def view_targets(targets): 
     print("\n  1 2 3 4 5\n") # Skriver ut listan med de numrerade positionerna (\n = blank rad) 
     print("  " + targets_to_string(targets) + "\n") # Skriver ut måltavlan 
 
 
 
-
-
-######### ÄNDRA ###################################################################
+# Poängräknare 
 def points(targets):
     # Variabel för att hålla räkningen av stängda mål
     n = 0
@@ -94,20 +87,23 @@ def points(targets):
             n += 1
     # Returnera antalet stängda mål
     return n
-###################################################################################
 
 
 
-######### ÄNDRA ###################################################################
-# Ny funktion för att parsa användarinmatning 
-def parse_target(string): # Omvandlar de verkliga indexen (0-4) till (1-5) från spelarens input
-    if len(string) == 1 and string.isnumeric(): # omvandlar till ett tal 
-        num = int(string) # ex om spelaren skriver 3 omvandlas det till 3 
+# Omvandlar de verkliga indexen (0-4) till (1-5) från spelarens input
+def parse_target(string): # Kontrollera om strängen kan konverteras till ett heltal (är numerisk)
+    
+    # Konverterar strängen till ett heltal
+    if string.isnumeric():
+       
+       # Om talet är mellan 1 och 5, returnera motsvarande index (0-4)
+        num = int(string) 
+        
         if 1 <= num <= 5: # talen 1-5
             return num - 1 # Omvandlingen från verkliga index, ex om man skriver 1: 1-1=0 som är index [0]
+   
+   # Om det inte är en giltig sträng, returnera None
     return None
-
-####################################################################################
 
 
 #-----------------------------------------------------------------------------------
@@ -125,7 +121,7 @@ def play_game():
         position = parse_target(input(f"Shot nr {current_shot} at: ")) # stäng retuneras 
         if position is None:
             print("Please enter a valid position between 1 and 5.") # fel index inmatning
-            continue ###############FÖRSTÅ!!!!!!!!
+            continue 
         
         result = shoot(targets, position)
         print(result)
@@ -136,32 +132,3 @@ def play_game():
 
 # Starta spelet
 play_game()
-#-----------------------------------------------------------------------------------
-# Spel för två spelare
-#-----------------------------------------------------------------------------------
-# def play_game_two_players():
-#     splash()  # Visa spelets titel och introduktion
-#     shots = 5  # Antal skott per spelare
-#     players = ["Player A", "Player B"]  # Lista över spelare
-#     targets = [new_targets(), new_targets()]  # Skapa måltavlor för båda spelarna
-#     current_shot = 0  # Skott räknare
-# 
-#     while current_shot < shots:
-#         for i, player in enumerate(players):
-#             current_shot += 1
-#             print(f"{player}'s turn")
-#             view_targets(targets[i])
-#             position = parse_target(input(f"Shot nr {current_shot} at: "))
-#             if position is None:
-#                 print("Please enter a valid position between 1 and 5.")
-#                 continue
-#             
-#             result = shoot(targets[i], position)
-#             print(result)
-#             view_targets(targets[i])
-# 
-#     for i, player in enumerate(players):
-#         print(f"{player} hit {points(targets[i])} of {len(targets[i])} targets")
-# 
-# # Starta spelet för två spelare
-# play_game_two_players()
