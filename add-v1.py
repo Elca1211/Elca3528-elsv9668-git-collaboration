@@ -5,7 +5,7 @@
 # 4. skriva ut den uppdaterade listan med ankor.
 
 ducks = ["Huey", "Dewey", "Louie"] # Skapar listan ducks
-print(f"List of ducks: {ducks}\n")
+print(f"            List of ducks: {ducks}\n")
 
 # Definerar funktionen add
 def add(prompt, strings): # Prompt och strings är här abstrakta parametrar
@@ -14,7 +14,14 @@ def add(prompt, strings): # Prompt och strings är här abstrakta parametrar
     return strings # Den uppdaterade listan retuneras
 
 # Anropar funktionen med värden för prompt och strings
-updated_ducks = add("Add a duck: ", ducks)
+updated_ducks = add("               Add a duck: ", ducks)
 
 # Skriver ut den uppdaterade listan med ankor
-print(f"\nUpdated list of ducks: {updated_ducks}\n")
+print(f"\n    Updated list of ducks: {updated_ducks}\n")
+
+composers = ["Mozart", "Bach"]
+print(f"                Composers: {composers}\n")
+
+updated_composers = add("           Add a composer: ", composers)
+
+print(f"\nUpdated list of composers: {updated_composers}\n")
